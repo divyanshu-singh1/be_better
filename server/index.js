@@ -1,10 +1,9 @@
 const express = require('express');
+const UserDetails = require('./db')
 const app = express();
 const port = 8000;
+
 app.use(express.json());
-
-
-
 
 let tasks = [
     {
@@ -39,69 +38,113 @@ let tasks = [
     }
 ]
 
-app.get("/",(req,res) => {
-  res.send("Home page");
-});
+// app.get("/",(req,res) => {
+//   res.send("Home page ,Welcone");
+// });
 
-app.get("/tasks",(req,res)=>{
-  const tasknames = tasks.map(task => task.taskname);
-  res.json(tasknames);
-});
+// app.get("/tasks",(req,res)=>{
+//   const tasknames = tasks.map(task => task.taskname);
+//   res.json(tasknames);
+// });
 
-app.post("/new_task" , (req,res) => {
-  const task = req.body;
-  tasks.push(task);
-  res.status(200).json( { "message " : "task updated successfully" , "update array" : tasks});
-});
+// app.post("/new_task" , (req,res) => {
+//   const task = req.body;
+//   tasks.push(task);
+//   res.status(200).json( { "message " : "task updated successfully" , "update array" : tasks});
+// });
 
-// Update the status of a task
-app.put('/tasks/:id', (req, res) => {
-  const taskId = parseInt(req.params.id);
-  const updatedStatus = req.body.status;
-  flag = false;
-  tasks.forEach(task => {
-    if (task.id === taskId) {
-      task.status = updatedStatus;
-      flag = true;
-    }
-  });
-  if(flag)
-    res.send('Task status updated successfully!');
-  else  
-    res.send('Invalid ID');
+// // Update the status of a task
+// app.put('/tasks/:id', (req, res) => {
+//   const taskId = parseInt(req.params.id);
+//   const updatedStatus = req.body.status;
+//   flag = false;
+//   tasks.forEach(task => {
+//     if (task.id === taskId) {
+//       task.status = updatedStatus;
+//       flag = true;
+//     }
+//   });
+//   if(flag)
+//     res.send('Task status updated successfully!');
+//   else  
+//     res.send('Invalid ID');
   
+// });
+
+
+// // Update task details
+// app.patch('/tasks/:id', (req, res) => {
+//   const taskId = parseInt(req.params.id);
+//   const updatedNotes = req.body.notes;
+
+//   flag = false;
+//   tasks.forEach(task => {
+//     if (task.id === taskId) {
+//       task.notes = updatedNotes;
+//       flag = true;
+//     }
+
+//   });
+//   if(flag)
+//     res.send('Task details updated successfully!');
+//   else  
+//     res.send('Can not UPDATE , Task not found')
+// });
+
+// // Delete a task
+// app.delete('/tasks/:id', (req, res) => {
+//   const taskId = parseInt(req.params.id);
+
+//   tasks = tasks.filter(task => task.id !== taskId);
+
+//   res.send('Task deleted successfully!');
+// });
+
+app.get('/students', async (req, res) => {
+  try {
+      const users = await UserDetails.find();
+      res.json(users);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
 });
 
-
-// Update task details
-app.patch('/tasks/:id', (req, res) => {
-  const taskId = parseInt(req.params.id);
-  const updatedNotes = req.body.notes;
-
-  flag = false;
-  tasks.forEach(task => {
-    if (task.id === taskId) {
-      task.notes = updatedNotes;
-      flag = true;
-    }
-
-  });
-  if(flag)
-    res.send('Task details updated successfully!');
-  else  
-    res.send('Can not UPDATE , Task not found')
+app.post('/students', async (req, res) => {
+  try {
+      const newItem = new UserDetails(req.body);
+      await newItem.save();
+      res.json(newItem);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
 });
 
-// Delete a task
-app.delete('/tasks/:id', (req, res) => {
-  const taskId = parseInt(req.params.id);
-
-  tasks = tasks.filter(task => task.id !== taskId);
-
-  res.send('Task deleted successfully!');
+app.put('/students/:uid', async (req, res) => {
+  try {
+      const updatedItem = await UserDetails.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      res.json(updatedItem);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
 });
 
-   
+app.delete('/students/:uid', async (req, res) => {
+  try {
+      const deletedItem = await UserDetails.findByIdAndDelete(req.params.id);
+      res.json(deletedItem);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+// app.get('/students/d1/:uid' , (req,res) => {
+
+// });
+
+
+
+
+
+
 
 app.listen(port , () =>{
     console.log(`Server is running on port : ${port} `);
