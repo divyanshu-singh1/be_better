@@ -1,5 +1,5 @@
 const express = require('express');
-const UserDetails = require('./db')
+const { UserDetails } = require('./db')
 const app = express();
 const port = 8000;
 
@@ -100,6 +100,10 @@ let tasks = [
 //   res.send('Task deleted successfully!');
 // });
 
+app.get('/' , (req,res) => {
+    res.send("Home Page");
+});
+
 app.get('/students', async (req, res) => {
   try {
       const users = await UserDetails.find();
@@ -121,21 +125,32 @@ app.post('/students', async (req, res) => {
 
 app.put('/students/:uid', async (req, res) => {
   try {
-      const updatedItem = await UserDetails.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const updatedItem = await UserDetails.findOneAndUpdate({uid : req.params.uid} , req.body, { new: true });
       res.json(updatedItem);
   } catch (error) {
       res.status(500).json({ error: error.message });
   }
 });
 
-app.delete('/students/:uid', async (req, res) => {
+app.patch('/students/v1/:uid', async (req, res) => {
   try {
-      const deletedItem = await UserDetails.findByIdAndDelete(req.params.id);
+      const updatedItem = await UserDetails.findOneAndUpdate({uid: req.params.uid}, { $set: req.body }, { new: true });
+      res.json(updatedItem);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+app.delete('/students/d1/:uid', async (req, res) => {
+  try {
+      const deletedItem = await UserDetails.findOneAndDelete({uid: req.params.uid});
       res.json(deletedItem);
   } catch (error) {
       res.status(500).json({ error: error.message });
   }
 });
+
+
 // app.get('/students/d1/:uid' , (req,res) => {
 
 // });
