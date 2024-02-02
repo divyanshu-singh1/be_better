@@ -2,7 +2,6 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Box } from "@mui/material";
@@ -13,7 +12,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import { purple } from "@mui/material/colors";
 
 function Navbar() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
