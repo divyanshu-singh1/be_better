@@ -13,7 +13,7 @@ import '@fontsource/poppins'
 const FAQs = () => {
   return (
     <Container>
-      {/* About us what are we */}
+      
 
       <Card sx={{ padding: 3, margin: 3, boxShadow: 5 }}>
         <Grid container spacing={3}>
@@ -27,7 +27,7 @@ const FAQs = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   }}>
-                About US
+                FAQs
               </Typography>
 
           </Grid>
@@ -72,7 +72,7 @@ const FAQs = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   }}> 
-                  Our Motive
+                  FAQs
               </Typography>
 
           </Grid>

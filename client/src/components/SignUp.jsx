@@ -7,11 +7,16 @@ import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { NavLink } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
+import { InputAdornment } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -89,7 +94,15 @@ export default function SignUp() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
+        <Card 
+          sx={{
+            padding: 4,
+            boxShadow:4,
+            marginTop: 4,
+            
+          }}>
+
+            
         <Box
           sx={{
             marginTop: 8,
@@ -98,9 +111,7 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
+    
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
@@ -121,6 +132,13 @@ export default function SignUp() {
                   autoFocus
                   value={FormData.firstName}
                   onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonRoundedIcon />
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -133,6 +151,7 @@ export default function SignUp() {
                   autoComplete="family-name"
                   value={FormData.lastName}
                   onChange={handleChange}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -145,6 +164,13 @@ export default function SignUp() {
                   autoComplete="email"
                   value={FormData.email}
                   onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailRoundedIcon />
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -157,6 +183,13 @@ export default function SignUp() {
                   id="password"
                   value={FormData.password}
                   onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <KeyRoundedIcon />
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
             </Grid>
@@ -177,7 +210,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        </Card>
       </Container>
     </ThemeProvider>
   );

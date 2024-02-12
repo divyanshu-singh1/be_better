@@ -34,6 +34,7 @@ import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
 function Navbar() {
   // const drawerWidth = 400;
+  const [isLoggedIn,setIsLoggedIn] = React.useState(false);
 
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const bxref = React.useRef();
@@ -64,19 +65,11 @@ function Navbar() {
                 </ListItemText>
               </ListItem> 
 
-              <ListItem  component={Link} to={"/daily-tasks2"} >
-                <ListItemIcon>
-                  <AssignmentTurnedInIcon/>
-                </ListItemIcon>
-                <ListItemText>
-                  Daily Tasks Two
-                </ListItemText>
-              </ListItem> 
             </List>
             </Drawer>
           </Box>
 
-          <Box 
+          {/* <Box 
             sx={{
               display: 'flex',
               gap: 2,
@@ -84,11 +77,22 @@ function Navbar() {
             <Button component={Link} to={"/home"} color="inherit">Home</Button>
             <Button component={Link} to={"/aboutus"} color="inherit">About Us</Button>
             <Button component={Link} to={"/faqs"} color="inherit">FAQs</Button>
-          </Box>
+          </Box> */}
 
-          <IconButton color="inherit" size="small">
-            <AccountCircleIcon fontSize="large" />
-          </IconButton>
+          {isLoggedIn ? (
+              <>
+                <IconButton color="inherit" size="small">
+                  <AccountCircleIcon fontSize="large" />
+                </IconButton>
+              </>
+
+            ):(
+              <Box>
+              <Button component={Link} to={'/login'} color="inherit" >Log in</Button>
+              <Button component={Link} to={'/signup'} color="inherit" >Sign up</Button>
+              </Box>
+          )}
+         
         </Toolbar>
       </AppBar>
     </>

@@ -6,7 +6,7 @@ import Home from './components/Home';
 import AboutUs from './components/AboutUs';
 import FAQs from './components/FAQs';
 import DailyTasksTwo from './components/DailyTasksTwo';
-// import Footer from './components/Footer';
+import Footer from './components/Footer';
 import DailyTasks from './components/DailyTasks';
 
 
@@ -27,6 +27,7 @@ function App() {
             {/* sign up se log in jane ke liye be route ko "/" kiya hai "/login" ke bajaye
                 because abhi bina authentication ke route clear karne me issues aarahe hain */}
             {/* <Route path="/login" element={<LogIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}></Route> */}
+            <Route path="/login" element={<LogIn />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/aboutus" element={<AboutUs />}></Route>
@@ -36,6 +37,8 @@ function App() {
             <Route path="daily-tasks2" element={<DailyTasksTwo/>}> </Route>
 
           </Routes>
+
+          <Footer />
         </BrowserRouter>
       </>
   );
